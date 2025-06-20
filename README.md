@@ -1,92 +1,147 @@
-README
-Complete REST API in Go
+# 🧰 Complete REST API in Go
 
-Development Setup
-⚠️ Important: Before running the application, make sure to set up the database by following the Database Migrations section below.
+## 🚧 Development Setup
 
-Using Air for Live Reload
-This project uses Air for live reload during development. Here's how to get started:
+> ⚠️ **Important:** Before running the application, make sure to set up the database by following the **[Database Migrations](#database-migrations)** section below.
 
-Install Air:
+---
+
+## 🔄 Using Air for Live Reload
+
+This project uses [**Air**](https://github.com/cosmtrek/air) for live reload during development.
+
+### ➤ Install Air
+```bash
 go install github.com/cosmtrek/air@latest
-Run the application with Air:
+```
+
+### ➤ Run the application with Air
+```bash
 air
+```
+
 Air will automatically:
+- Watch your Go files for changes
+- Rebuild your application on file changes
+- Restart your server automatically
+- Show build errors with colorized output
 
-Watch your Go files for changes
-Rebuild your application when files change
-Restart your server automatically
-Show build errors in a colorized format
-To stop Air, press Ctrl+C in your terminal.
+> To stop Air, press `Ctrl+C` in your terminal.
 
-The project is already configured with a .air.toml file that:
+### ✅ Air Configuration
+The project includes a pre-configured `.air.toml` file that:
+- Watches the `cmd/api` directory
+- Excludes test files and common directories
+- Includes Go files, templates, and HTML files
+- Uses colorized output for better visibility
 
-Watches the cmd/api directory
-Excludes test files and common directories
-Includes Go files, templates, and HTML files
-Uses colorized output for better visibility
-Environment Variables
-For local development, you can optionally create a .env file with these variables (all have sensible defaults):
+---
 
+## 🌐 Environment Variables
+
+You can optionally create a `.env` file for local development:
+
+```env
 BASE_URL=http://localhost:8080
 PORT=8080
 JWT_SECRET=your-secret-key
-For production, make sure to set these values through your deployment platform's environment configuration.
+```
 
-Running Without Air
-If you prefer not to use Air, you can run the application directly with Go:
+For **production**, configure these via your deployment platform’s environment settings.
 
+---
+
+## ▶️ Running Without Air
+
+If you prefer not to use Air, run the application manually:
+
+```bash
 go run ./cmd/api
-This will start the server on http://localhost:8080. Note that you'll need to manually restart the server when you make changes to the code.
+```
 
-Dependencies
-This project uses Go modules for dependency management. Dependencies will be automatically downloaded when you build or run the application. No manual installation is required.
+The server will start at: [http://localhost:8080](http://localhost:8080)
 
-If you want to explicitly download dependencies, you can run:
+> You’ll need to restart manually when code changes.
 
+---
+
+## 📦 Dependencies
+
+This project uses **Go modules** for dependency management. Dependencies are automatically handled when you build or run the app.
+
+To download them explicitly:
+```bash
 go mod download
-Database Migrations
-This project uses golang-migrate for database migrations. First, install the migrate CLI:
+```
 
-Golang migrate https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md
+---
 
-Running Migrations
-⚠️ Required: Before running the application for the first time, you must run the database migrations to create all necessary database tables and schemas:
+## 🗄️ Database Migrations
 
+This project uses [**golang-migrate**](https://github.com/golang-migrate/migrate) for managing database schema.
+
+### ➤ Install Migrate CLI
+See the instructions here:  
+[golang-migrate CLI install guide](https://github.com/golang-migrate/migrate/blob/master/cmd/migrate/README.md)
+
+### ⚠️ Run Migrations Before First Launch
+```bash
 go run ./cmd/migrate up
-To rollback migrations (undo last migration):
+```
 
+### ⬅️ Rollback Migrations
+```bash
 go run ./cmd/migrate down
-Creating New Migrations
-To create a new migration:
+```
 
+### 🆕 Create New Migrations
+```bash
 migrate create -ext sql -dir ./cmd/migrate/migrations -seq name_of_migration
-This will create two new files in the migrations directory:
+```
 
-{timestamp}_name_of_migration.up.sql
-{timestamp}_name_of_migration.down.sql
-Building the Application
-To build the application:
+This creates two new files:
+- `{timestamp}_name_of_migration.up.sql`
+- `{timestamp}_name_of_migration.down.sql`
 
+---
+
+## 🛠️ Building the Application
+
+To compile the application:
+
+```bash
 go build -o api ./cmd/api
-This will create an executable named api in your project root directory.
+```
 
-Running the Application
-After building, you can run the application using:
+This creates an `api` executable in the project root.
 
+---
+
+## 🚀 Running the Application
+
+After building, run the app with:
+
+```bash
 ./api
-The server will start on http://localhost:8080 by default.
+```
 
-API Documentation
-To generate the Swagger documentation, run:
+By default, it starts at: [http://localhost:8080](http://localhost:8080)
 
+---
+
+## 📘 API Documentation (Swagger)
+
+Generate Swagger docs using:
+
+```bash
 swag init --dir cmd/api --parseDependency --parseInternal --parseDepth 1
-The API documentation is available via Swagger UI at:
+```
 
-http://localhost:8080/swagger
-This interactive documentation provides:
+Then view it at:  
+[http://localhost:8080/swagger](http://localhost:8080/swagger)
 
-Complete API endpoint listing
-Request/response schemas
-Try-it-out functionality
-Authentication details
+Swagger UI provides:
+- A full list of API endpoints
+- Request and response schema documentation
+- **Try-it-out** functionality
+- Authentication and headers support
